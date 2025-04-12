@@ -194,7 +194,7 @@ scaden_train <- function(h5ad_processed, temp_dir = NULL, batch_size = 128, lear
   # Calling Scaden command
   system(
     paste(
-      "scaden train", h5ad_processed_tmp, "--batch_size", batch_size, "--learning_rate",
+      "/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden train", h5ad_processed_tmp, "--batch_size", batch_size, "--learning_rate",
       learning_rate, "--steps", steps, "--model_dir", model_path
     ),
     ignore.stdout = !verbose, ignore.stderr = !verbose
@@ -253,13 +253,13 @@ scaden_process <- function(h5ad, temp_dir = NULL, bulk_gene_expression, var_cuto
 
 
       if (is.null(var_cutoff)) {
-        system(paste("scaden process", h5ad_tmp, bulk_gene_expression_tmp, "--processed_path", processed_h5ad),
+        system(paste("/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden process", h5ad_tmp, bulk_gene_expression_tmp, "--processed_path", processed_h5ad),
           ignore.stdout = !verbose, ignore.stderr = !verbose
         )
       } else {
         system(
           paste(
-            "scaden process", h5ad_tmp, bulk_gene_expression_tmp, "--processed_path", processed_h5ad,
+            "/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden process", h5ad_tmp, bulk_gene_expression_tmp, "--processed_path", processed_h5ad,
             "--var_cutoff", var_cutoff
           ),
           ignore.stdout = !verbose, ignore.stderr = !verbose
@@ -315,7 +315,7 @@ scaden_predict <- function(model_dir, bulk_gene_expression, temp_dir = NULL, ver
         col.names = NA, quote = FALSE
       )
 
-      system(paste("scaden predict --model_dir", model_dir, bulk_gene_expression_tmp),
+      system(paste("/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden predict --model_dir", model_dir, bulk_gene_expression_tmp),
         ignore.stdout = !verbose, ignore.stderr = !verbose
       )
 
@@ -366,8 +366,8 @@ scaden_simulate_example <- function(example_data_path = NULL, verbose = FALSE) {
 
 
   system("mkdir example_data")
-  system("scaden example --out example_data/")
-  system(paste0("scaden simulate --data ", tmp_dir, "/example_data/ -n 100 --pattern *_counts.txt"))
+  system("/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden example --out example_data/")
+  system(paste0("/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden simulate --data ", tmp_dir, "/example_data/ -n 100 --pattern *_counts.txt"))
 
   simulated_h5ad <- read_anndata(paste0(tmp_dir, "/data.h5ad"))
   bulk <- utils::read.table(paste0(tmp_dir, "/example_data/example_bulk_gene_expression.txt"))
@@ -439,7 +439,7 @@ scaden_simulate <- function(cell_type_annotations, gene_labels, single_cell_obje
 
       system(
         paste(
-          "scaden simulate --data", paste0(tmp_dir, "/", dataset_name), "-n", samples,
+          "/home/data/t130437/miniconda3/envs/r-omnideconv/bin/scaden simulate --data", paste0(tmp_dir, "/", dataset_name), "-n", samples,
           "-c", cells, "--pattern *_counts.txt"
         ),
         ignore.stdout = !verbose, ignore.stderr = !verbose
